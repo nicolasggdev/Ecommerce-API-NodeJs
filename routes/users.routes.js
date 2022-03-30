@@ -2,7 +2,11 @@
 const express = require("express");
 
 // Import Controllers
-const { createUser, loginUser } = require("../controllers/users.controllers");
+const {
+  createUser,
+  loginUser,
+  productsCreated
+} = require("../controllers/users.controllers");
 
 // Import Middleware
 const { validateSession } = require("../middlewares/auth.middleware");
@@ -18,7 +22,7 @@ router.post("/login", loginUser);
 
 router.use(validateSession);
 
-router.get("/me", () => {});
+router.get("/me", productsCreated);
 
 router
   .route("/:id")

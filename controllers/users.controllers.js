@@ -1,5 +1,6 @@
 // Import Model
 const { User } = require("../model/user.model");
+const { Product } = require("../model/product.model");
 
 // Import Bcrypt
 const bcrypt = require("bcryptjs");
@@ -9,6 +10,7 @@ const jwt = require("jsonwebtoken");
 
 // Import Utils
 const { catchAsync } = require("../utils/catchAsync");
+const { AppError } = require("../utils/appError");
 
 // Define the controllers
 
@@ -66,3 +68,23 @@ exports.loginUser = catchAsync(async (req, res, next) => {
 });
 
 // END Login the user
+
+// Get the products than user created
+exports.productsCreated = catchAsync(async (req, res, next) => {
+  const { currentUser } = req;
+
+  const productsCreated = await User.findOne({
+    where: { id: currentUser.id, status: "active" },
+    attributes: { exclude: ["password"] },
+    include: [{ model: Product }]
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      productsCreated
+    }
+  });
+});
+
+// END Get the products than user created
