@@ -5,7 +5,8 @@ const express = require("express");
 const {
   createUser,
   loginUser,
-  productsCreated
+  productsCreated,
+  updateUser
 } = require("../controllers/users.controllers");
 
 // Import Middleware
@@ -26,7 +27,7 @@ router.get("/me", productsCreated);
 
 router
   .route("/:id")
-  .patch(() => {})
+  .patch(updateUser)
   .delete(() => {});
 
 router.get("/orders");

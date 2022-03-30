@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken");
 // Import Utils
 const { catchAsync } = require("../utils/catchAsync");
 const { AppError } = require("../utils/appError");
+const { filterObj } = require("../utils/filterObj");
 
 // Define the controllers
 
@@ -88,3 +89,30 @@ exports.productsCreated = catchAsync(async (req, res, next) => {
 });
 
 // END Get the products than user created
+
+// Update the data user
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await User.findOne({
+    where: { id, status: "active" },
+    attributes: { exclude: ["password"] }
+  });
+
+  if (!user) {
+    return next(new AppError(404, "Cant find the user with the given ID"));
+  }
+
+  const data = filterObj(req.body, "username", "email");
+
+  const updatedUser = await user.update({ ...data });
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      updatedUser
+    }
+  });
+});
+
+// END Update the data user
