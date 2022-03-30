@@ -21,6 +21,10 @@ const Product = database.define("product", {
     type: DataTypes.TEXT,
     allowNull: false
   },
+  img: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false
