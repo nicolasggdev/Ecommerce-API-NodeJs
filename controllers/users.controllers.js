@@ -92,16 +92,7 @@ exports.productsCreated = catchAsync(async (req, res, next) => {
 
 // Update the data user
 exports.updateUser = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const user = await User.findOne({
-    where: { id, status: "active" },
-    attributes: { exclude: ["password"] }
-  });
-
-  if (!user) {
-    return next(new AppError(404, "Cant find the user with the given ID"));
-  }
+  const { user } = req;
 
   const data = filterObj(req.body, "username", "email");
 
@@ -119,16 +110,7 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 
 // Delete the user
 exports.deleteUser = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const user = await User.findOne({
-    where: { id, status: "active" },
-    attributes: { exclude: ["password"] }
-  });
-
-  if (!user) {
-    return next(new AppError(404, "Cant find the user with the given ID"));
-  }
+  const { user } = req;
 
   await user.update({ status: "deleted" });
 

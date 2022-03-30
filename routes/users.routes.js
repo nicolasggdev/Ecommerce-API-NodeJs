@@ -12,6 +12,10 @@ const {
 
 // Import Middleware
 const { validateSession } = require("../middlewares/auth.middleware");
+const {
+  protectAccountOwner,
+  userExist
+} = require("../middlewares/users/users.middleware");
 
 // Init Router
 const router = express.Router();
@@ -26,7 +30,11 @@ router.use(validateSession);
 
 router.get("/me", productsCreated);
 
-router.route("/:id").patch(updateUser).delete(deleteUser);
+router
+  .use("/:id", userExist)
+  .route("/:id")
+  .patch(protectAccountOwner, updateUser)
+  .delete(protectAccountOwner, deleteUser);
 
 router.get("/orders");
 
