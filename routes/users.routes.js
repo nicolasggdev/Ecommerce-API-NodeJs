@@ -16,13 +16,17 @@ const {
   protectAccountOwner,
   userExist
 } = require("../middlewares/users/users.middleware");
+const {
+  createUserValidator,
+  validationResult
+} = require("../middlewares/validators.middleware");
 
 // Init Router
 const router = express.Router();
 
 // Define the endpoints
 
-router.post("/", createUser);
+router.post("/", createUserValidator, validationResult, createUser);
 
 router.post("/login", loginUser);
 
