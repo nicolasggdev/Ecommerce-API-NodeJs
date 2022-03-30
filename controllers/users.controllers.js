@@ -116,3 +116,25 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 });
 
 // END Update the data user
+
+// Delete the user
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await User.findOne({
+    where: { id, status: "active" },
+    attributes: { exclude: ["password"] }
+  });
+
+  if (!user) {
+    return next(new AppError(404, "Cant find the user with the given ID"));
+  }
+
+  await user.update({ status: "deleted" });
+
+  res.status(204).json({
+    status: "success"
+  });
+});
+
+// END Delete the user

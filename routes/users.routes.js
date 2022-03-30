@@ -6,7 +6,8 @@ const {
   createUser,
   loginUser,
   productsCreated,
-  updateUser
+  updateUser,
+  deleteUser
 } = require("../controllers/users.controllers");
 
 // Import Middleware
@@ -25,10 +26,7 @@ router.use(validateSession);
 
 router.get("/me", productsCreated);
 
-router
-  .route("/:id")
-  .patch(updateUser)
-  .delete(() => {});
+router.route("/:id").patch(updateUser).delete(deleteUser);
 
 router.get("/orders");
 
