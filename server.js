@@ -22,6 +22,12 @@ database
 // Init Relations Models
 initModels();
 
+// Databse Synced
+database
+  .sync()
+  .then(() => console.log("Database is synced"))
+  .catch((err) => console.log(err));
+
 // Create a server on http://localhost:4000
 const PORT = process.env.PORT || 4000;
 
