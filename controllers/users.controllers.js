@@ -1,6 +1,7 @@
 // Import Model
 const { User } = require("../model/user.model");
 const { Product } = require("../model/product.model");
+const { Order } = require("../model/order.model");
 
 // Import Bcrypt
 const bcrypt = require("bcryptjs");
@@ -18,7 +19,7 @@ const { filterObj } = require("../utils/filterObj");
 // Create a new user
 
 exports.createUser = catchAsync(async (req, res, next) => {
-  const { username, email, password, address } = req.body;
+  const { username, email, password } = req.body;
 
   const salt = await bcrypt.genSalt(12);
 
@@ -27,8 +28,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     username,
     email,
-    password: passwordCrypt,
-    address
+    password: passwordCrypt
   });
 
   newUser.password = undefined;
@@ -120,3 +120,23 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 });
 
 // END Delete the user
+
+// Get all the user orders
+exports.getAllOrders = catchAsync(async (req, res, next) => {
+  const { currentUser } = req;
+
+  const orders = await User.findOne({
+    where: { id: currentUser.id, status: "active" },
+    attributes: { exclude: ["password"] },
+    include: [{ model: Order }]
+  });
+
+  res.status(204).json({
+    status: "success",
+    data: {
+      orders
+    }
+  });
+});
+
+// END Get all the user orders

@@ -21,15 +21,40 @@ exports.createUserValidator = [
     .isString()
     .withMessage("Password must be a String")
     .notEmpty()
-    .withMessage("Must provide a valid password"),
-  body("address")
-    .isString()
-    .withMessage("Address must be a String")
-    .notEmpty()
-    .withMessage("Must provide a valid address")
+    .withMessage("Must provide a valid password")
 ];
 
 // END Users Validators
+
+// Products Validators
+exports.createProductValidator = [
+  body("title")
+    .isString()
+    .withMessage("Title must be a String")
+    .notEmpty()
+    .withMessage("Must provide a valid title"),
+  body("description")
+    .isString()
+    .withMessage("Description must be a String")
+    .notEmpty()
+    .withMessage("Must provide a valid description"),
+  body("quantity")
+    .isNumeric()
+    .withMessage("Quantity must be a Number")
+    .custom((value) => value > 0)
+    .withMessage("Quantity must be greater than 0")
+    .notEmpty()
+    .withMessage("Must provide a valid quantity"),
+  body("price")
+    .isNumeric()
+    .withMessage("Price must be a Number")
+    .custom((value) => value > 0)
+    .withMessage("Price must be greater than 0")
+    .notEmpty()
+    .withMessage("Must provide a valid price")
+];
+
+// END Products Validators
 
 exports.validationResult = catchAsync(async (req, res, next) => {
   const errors = validationResult(req);

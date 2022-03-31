@@ -1,6 +1,15 @@
 // Import Express
 const express = require("express");
 
+// Import Helmet
+const helmet = require("helmet");
+
+// Import Compression
+const compression = require("compression");
+
+// Import Express Rate Limit
+const expressRateLimit = require("express-rate-limit");
+
 // Import GlobalError Middleware
 const { globalErrorHandler } = require("./middlewares/error.middleware");
 
@@ -15,6 +24,22 @@ const app = express();
 // Enable to receive JSON and Form-Data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Init helmet
+app.use(helmet());
+
+// Init compression
+app.use(compression());
+
+// Init Express Rate Limit
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  message:
+    "Too many accounts created from this IP, please try again after an hour"
+});
+
+app.use(limiter);
 
 // Init Router
 app.use("/api/v1/users", userRouter);

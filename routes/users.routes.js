@@ -7,7 +7,8 @@ const {
   loginUser,
   productsCreated,
   updateUser,
-  deleteUser
+  deleteUser,
+  getAllOrders
 } = require("../controllers/users.controllers");
 
 // Import Middleware
@@ -40,7 +41,7 @@ router
   .patch(protectAccountOwner, updateUser)
   .delete(protectAccountOwner, deleteUser);
 
-router.get("/orders");
+router.get("/orders", getAllOrders);
 
 router.get("/orders/:id");
 

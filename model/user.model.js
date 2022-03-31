@@ -26,10 +26,6 @@ const User = database.define("user", {
     type: DataTypes.STRING(255),
     allowNull: false
   },
-  address: {
-    type: DataTypes.STRING(100),
-    allowNull: false
-  },
   status: {
     type: DataTypes.STRING(10),
     allowNull: false,
