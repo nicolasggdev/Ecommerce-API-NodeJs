@@ -8,7 +8,10 @@ const helmet = require("helmet");
 const compression = require("compression");
 
 // Import Express Rate Limit
-const expressRateLimit = require("express-rate-limit");
+const rateLimit = require("express-rate-limit");
+
+// Import utils
+const { AppError } = require("./utils/appError");
 
 // Import GlobalError Middleware
 const { globalErrorHandler } = require("./middlewares/error.middleware");

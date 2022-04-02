@@ -8,7 +8,11 @@ const { catchAsync } = require("../../utils/catchAsync");
 exports.productExists = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const product = await Product.findOne({ where: { status: "active", id } });
+  const { productId } = req.body;
+
+  const product = await Product.findOne({
+    where: { status: "active", id }
+  });
 
   if (!product) {
     return next(new AppError(404, "No product found"));

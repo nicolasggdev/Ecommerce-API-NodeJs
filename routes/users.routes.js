@@ -8,7 +8,10 @@ const {
   productsCreated,
   updateUser,
   deleteUser,
-  getAllOrders
+  getAllUsers,
+  getUserById,
+  getAllOrders,
+  getOrderById
 } = require("../controllers/users.controllers");
 
 // Import Middleware
@@ -35,14 +38,17 @@ router.use(validateSession);
 
 router.get("/me", productsCreated);
 
-router
-  .use("/:id", userExist)
-  .route("/:id")
-  .patch(protectAccountOwner, updateUser)
-  .delete(protectAccountOwner, deleteUser);
+router.get("/", getAllUsers);
 
 router.get("/orders", getAllOrders);
 
-router.get("/orders/:id");
+router.get("/orders/:id", getOrderById);
+
+router
+  .use("/:id", userExist)
+  .route("/:id")
+  .get(getUserById)
+  .patch(protectAccountOwner, updateUser)
+  .delete(protectAccountOwner, deleteUser);
 
 module.exports = { userRouter: router };

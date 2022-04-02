@@ -14,13 +14,16 @@ const database = new Sequelize({
   database: process.env.DB,
   port: 5432,
   dialect: "postgres",
-  logging: false
-  // dialectOptions: {
-  //   ssl: {
-  //     require: true,
-  //     rejectUnauthorized: false
-  //   }
-  // }
+  logging: false,
+  dialectOptions:
+    process.env.NODE_ENV === "production"
+      ? {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false
+          }
+        }
+      : {}
 });
 
 module.exports = { database };

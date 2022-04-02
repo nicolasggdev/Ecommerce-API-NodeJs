@@ -2,6 +2,7 @@
 const { User } = require("../model/user.model");
 const { Product } = require("../model/product.model");
 const { Order } = require("../model/order.model");
+const { Cart } = require("../model/cart.model");
 
 // Import Bcrypt
 const bcrypt = require("bcryptjs");
@@ -9,10 +10,16 @@ const bcrypt = require("bcryptjs");
 // Import JWT
 const jwt = require("jsonwebtoken");
 
+// Import dotenv
+const dotenv = require("dotenv");
+
 // Import Utils
 const { catchAsync } = require("../utils/catchAsync");
 const { AppError } = require("../utils/appError");
 const { filterObj } = require("../utils/filterObj");
+
+// Init dotenv
+dotenv.config({ path: "./config.env" });
 
 // Define the controllers
 
@@ -70,15 +77,44 @@ exports.loginUser = catchAsync(async (req, res, next) => {
 
 // END Login the user
 
+// Get all users
+
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  const users = await User.findAll({
+    attributes: { exclude: ["password"] },
+    where: { status: "active" }
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      users
+    }
+  });
+});
+
+// END Get all users
+
+// Get user by id
+
+exports.getUserById = catchAsync(async (req, res, next) => {
+  const { user } = req;
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      user
+    }
+  });
+});
+
+// END Get user by id
+
 // Get the products than user created
 exports.productsCreated = catchAsync(async (req, res, next) => {
-  const { currentUser } = req;
+  const { id } = req.currentUser;
 
-  const productsCreated = await User.findOne({
-    where: { id: currentUser.id, status: "active" },
-    attributes: { exclude: ["password"] },
-    include: [{ model: Product }]
-  });
+  const productsCreated = await Product.findAll({ where: { userId: id } });
 
   res.status(200).json({
     status: "success",
@@ -125,13 +161,9 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 exports.getAllOrders = catchAsync(async (req, res, next) => {
   const { currentUser } = req;
 
-  const orders = await User.findOne({
-    where: { id: currentUser.id, status: "active" },
-    attributes: { exclude: ["password"] },
-    include: [{ model: Order }]
-  });
+  const orders = await Order.findAll({ where: { userId: currentUser.id } });
 
-  res.status(204).json({
+  res.status(200).json({
     status: "success",
     data: {
       orders
@@ -140,3 +172,31 @@ exports.getAllOrders = catchAsync(async (req, res, next) => {
 });
 
 // END Get all the user orders
+
+// Get user orders by id
+exports.getOrderById = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const order = await Order.findOne({
+    where: { id },
+    include: [
+      {
+        model: Cart,
+        include: [
+          { model: Product, through: { where: { status: "purchased" } } }
+        ]
+      }
+    ]
+  });
+
+  if (!order) {
+    return next(new AppError(404, "No order found with that id"));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: { order }
+  });
+});
+
+// END Get user orders by id
