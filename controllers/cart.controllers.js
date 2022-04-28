@@ -1,15 +1,12 @@
-// Models
 const { Cart } = require("../model/cart.model");
 const { Product } = require("../model/product.model");
 const { ProductInCart } = require("../model/productInCart.model");
 const { Order } = require("../model/order.model");
 
-// Utils
 const { catchAsync } = require("../utils/catchAsync");
 const { AppError } = require("../utils/appError");
 
 // Get all users cart
-
 exports.getUserCart = catchAsync(async (req, res, next) => {
   const { currentUser } = req;
 
@@ -35,10 +32,7 @@ exports.getUserCart = catchAsync(async (req, res, next) => {
   });
 });
 
-// END Get all users cart
-
 // Add products to cart
-
 exports.addProductToCart = catchAsync(async (req, res, next) => {
   const { currentUser } = req;
   const { productId, quantity } = req.body;
@@ -91,10 +85,7 @@ exports.addProductToCart = catchAsync(async (req, res, next) => {
   });
 });
 
-// END Add products to cart
-
 // Update cart
-
 exports.updateCartProduct = catchAsync(async (req, res, next) => {
   const { currentUser } = req;
   const { productId, quantity } = req.body;
@@ -140,10 +131,7 @@ exports.updateCartProduct = catchAsync(async (req, res, next) => {
   });
 });
 
-// END Update cart
-
 // Remove products
-
 exports.removeProductFromCart = catchAsync(async (req, res, next) => {
   const { currentUser } = req;
   const { productId } = req.params;
@@ -178,10 +166,7 @@ exports.removeProductFromCart = catchAsync(async (req, res, next) => {
   });
 });
 
-// END Remove products
-
 // Update status cart
-
 exports.purchaseCart = catchAsync(async (req, res, next) => {
   const { currentUser } = req;
 
@@ -231,5 +216,3 @@ exports.purchaseCart = catchAsync(async (req, res, next) => {
     }
   });
 });
-
-// END Update status cart

@@ -1,7 +1,5 @@
-// Import Multer
 const multer = require("multer");
 
-// Import Middleware
 const { AppError } = require("../utils/appError");
 
 const storage = multer.memoryStorage();

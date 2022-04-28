@@ -1,10 +1,7 @@
-// Import Sequelize
 const { Sequelize } = require("sequelize");
 
-// Import dotenv
 const dotenv = require("dotenv");
 
-// Init dotenv
 dotenv.config({ path: "./config.env" });
 
 const database = new Sequelize({

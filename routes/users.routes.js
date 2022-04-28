@@ -1,7 +1,5 @@
-// Import Express
 const express = require("express");
 
-// Import Controllers
 const {
   createUser,
   loginUser,
@@ -14,7 +12,6 @@ const {
   getOrderById
 } = require("../controllers/users.controllers");
 
-// Import Middleware
 const { validateSession } = require("../middlewares/auth.middleware");
 const {
   protectAccountOwner,
@@ -25,10 +22,7 @@ const {
   validationResult
 } = require("../middlewares/validators.middleware");
 
-// Init Router
 const router = express.Router();
-
-// Define the endpoints
 
 router.post("/", createUserValidator, validationResult, createUser);
 

@@ -1,30 +1,21 @@
-// Import Model
 const { User } = require("../model/user.model");
 const { Product } = require("../model/product.model");
 const { Order } = require("../model/order.model");
 const { Cart } = require("../model/cart.model");
 
-// Import Bcrypt
 const bcrypt = require("bcryptjs");
 
-// Import JWT
 const jwt = require("jsonwebtoken");
 
-// Import dotenv
 const dotenv = require("dotenv");
 
-// Import Utils
 const { catchAsync } = require("../utils/catchAsync");
 const { AppError } = require("../utils/appError");
 const { filterObj } = require("../utils/filterObj");
 
-// Init dotenv
 dotenv.config({ path: "./config.env" });
 
-// Define the controllers
-
 // Create a new user
-
 exports.createUser = catchAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -48,10 +39,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
   });
 });
 
-// END Create a new user
-
 // Login the user
-
 exports.loginUser = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -75,10 +63,7 @@ exports.loginUser = catchAsync(async (req, res, next) => {
   });
 });
 
-// END Login the user
-
 // Get all users
-
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.findAll({
     attributes: { exclude: ["password"] },
@@ -93,10 +78,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
-// END Get all users
-
 // Get user by id
-
 exports.getUserById = catchAsync(async (req, res, next) => {
   const { user } = req;
 
@@ -107,8 +89,6 @@ exports.getUserById = catchAsync(async (req, res, next) => {
     }
   });
 });
-
-// END Get user by id
 
 // Get the products than user created
 exports.productsCreated = catchAsync(async (req, res, next) => {
@@ -123,8 +103,6 @@ exports.productsCreated = catchAsync(async (req, res, next) => {
     }
   });
 });
-
-// END Get the products than user created
 
 // Update the data user
 exports.updateUser = catchAsync(async (req, res, next) => {
@@ -142,8 +120,6 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   });
 });
 
-// END Update the data user
-
 // Delete the user
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const { user } = req;
@@ -154,8 +130,6 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
     status: "success"
   });
 });
-
-// END Delete the user
 
 // Get all the user orders
 exports.getAllOrders = catchAsync(async (req, res, next) => {
@@ -170,8 +144,6 @@ exports.getAllOrders = catchAsync(async (req, res, next) => {
     }
   });
 });
-
-// END Get all the user orders
 
 // Get user orders by id
 exports.getOrderById = catchAsync(async (req, res, next) => {
@@ -198,5 +170,3 @@ exports.getOrderById = catchAsync(async (req, res, next) => {
     data: { order }
   });
 });
-
-// END Get user orders by id

@@ -22,13 +22,9 @@ const {
   validationResult
 } = require("../middlewares/validators.middleware");
 
-// Import Utils
 const { upload } = require("../utils/multer");
 
-// Init Router
 const router = express.Router();
-
-// Define the endpoints
 
 router.use(validateSession);
 

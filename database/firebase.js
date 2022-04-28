@@ -1,11 +1,8 @@
-// Import Firebase
 const { initializeApp } = require("firebase/app");
 const { getStorage } = require("firebase/storage");
 
-// Import dotenv
 const dotenv = require("dotenv");
 
-// Init dotenv
 dotenv.config({ path: "./config.env" });
 
 const firebaseConfig = {

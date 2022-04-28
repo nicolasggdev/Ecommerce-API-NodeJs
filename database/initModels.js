@@ -1,4 +1,3 @@
-// Models
 const { User } = require("../model/user.model");
 const { Product } = require("../model/product.model");
 const { Cart } = require("../model/cart.model");

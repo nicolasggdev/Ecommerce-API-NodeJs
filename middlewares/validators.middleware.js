@@ -1,7 +1,5 @@
-// Import Express-Validator
 const { body, validationResult } = require("express-validator");
 
-// Import Utils
 const { catchAsync } = require("../utils/catchAsync");
 const { AppError } = require("../utils/appError");
 

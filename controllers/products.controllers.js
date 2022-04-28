@@ -1,21 +1,14 @@
-// Import Model
 const { Product } = require("../model/product.model");
 const { User } = require("../model/user.model");
 
-// Import Utils
 const { catchAsync } = require("../utils/catchAsync");
 const { filterObj } = require("../utils/filterObj");
 
-// Import Firebase
 const { storage } = require("../database/firebase");
 
-// Import firebase methods
 const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
 
-// Define the controllers
-
 // Create a new product
-
 exports.createProduct = catchAsync(async (req, res, next) => {
   const { title, description, quantity, price } = req.body;
 
@@ -44,7 +37,6 @@ exports.createProduct = catchAsync(async (req, res, next) => {
 });
 
 // Get all the products avalable
-
 exports.getAllProducts = catchAsync(async (req, res, next) => {
   const products = await Product.findAll({
     where: { status: "active" },
@@ -92,7 +84,6 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 });
 
 // Get all product by id
-
 exports.getProductById = catchAsync(async (req, res, next) => {
   const { product } = req;
 
@@ -110,6 +101,7 @@ exports.getProductById = catchAsync(async (req, res, next) => {
   });
 });
 
+// Update the product
 exports.updateProduct = catchAsync(async (req, res, next) => {
   const { product } = req;
 
@@ -125,6 +117,7 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+// Delete the product
 exports.deleteProduct = catchAsync(async (req, res, next) => {
   const { product } = req;
 

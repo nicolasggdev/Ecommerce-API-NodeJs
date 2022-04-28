@@ -1,7 +1,5 @@
-// Import Model
 const { User } = require("../../model/user.model");
 
-// Import Utils
 const { AppError } = require("../../utils/appError");
 const { catchAsync } = require("../../utils/catchAsync");
 
