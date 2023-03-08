@@ -8,7 +8,7 @@ https://documenter.getpostman.com/view/18428706/UyrEiaYs
 
 ## Deploy
 
-https://ecommerce-project-nicolas.herokuapp.com
+https://ecommercengg-api.fly.dev
 
 ## Inicia el proyecto
 
@@ -52,7 +52,7 @@ https://documenter.getpostman.com/view/18428706/UyrEiaYs
 
 ## Deploy
 
-https://ecommerce-project-nicolas.herokuapp.com
+https://ecommercengg-api.fly.dev
 
 ## Start the project
 
