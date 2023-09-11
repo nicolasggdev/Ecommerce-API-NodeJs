@@ -8,7 +8,7 @@ https://documenter.getpostman.com/view/18428706/UyrEiaYs
 
 ## Deploy
 
-https://ecommercengg-api.fly.dev
+https://ecommerce-api-nodejs-production.up.railway.app
 
 ## Inicia el proyecto
 
@@ -52,7 +52,7 @@ https://documenter.getpostman.com/view/18428706/UyrEiaYs
 
 ## Deploy
 
-https://ecommercengg-api.fly.dev
+https://ecommerce-api-nodejs-production.up.railway.app
 
 ## Start the project
 
